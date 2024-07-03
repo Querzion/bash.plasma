@@ -1,11 +1,13 @@
-# Function to install Flatpak if not already installed
+# Function to install Flatpak & Yakuake if not already installed
 install_flatpak() {
     if ! command -v flatpak &> /dev/null; then
         if command -v apt-get &> /dev/null; then
             sudo apt update
-            sudo apt install flatpak
+            sudo apt install -y flatpak yakuake
         elif command -v dnf &> /dev/null; then
-            sudo dnf install flatpak
+            sudo dnf install -y flatpak yakuake
+        elif command -v pacman &> /dev/null; then
+            sudo pacman -Syu --noconfirm flatpak yakuake
         else
             echo "Error: Unsupported package manager. Please install Flatpak manually."
             exit 1
